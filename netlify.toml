@@ -2,3 +2,7 @@
   base    = ""
   publish = "out/"
   command = "yarn run build"
+  [build.environment]
+    CONTENTFUL_HOST = "preview.contentful.com"
+    CONTENTFUL_SPACE_ID = "80aw8a2tssyf"
+    CONTENTFUL_ACCESS_TOKEN = "3749ef3433659882eabe74743073d929720ad402be14fd0693b81a3958de605f"
