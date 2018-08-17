@@ -9,6 +9,7 @@
     "dotenv": "6.0.0",
     "fs": "0.0.1-security",
     "next": "^6.1.1",
+    "next-routes": "1.4.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "styled-components": "3.4.2"

@@ -1,23 +1,13 @@
 import React from 'react'
-import styled from 'styled-components';
+import Link from 'next/link'
 
 import { contentfulClient } from '../utils/contentful'
 
-const LandingWrapper = styled.section`
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-`
-
-const Title = styled.h1`
-  margin: 1em 0;
-  font-size: 4rem;
-  font-weight: 100;
-  
-`
-const Project = styled.article`
-  padding: 2rem;
-  border-bottom: 1px solid purple;
-  ${props => props.order === 0 ? 'border-top: 1px solid purple;' : ''}
-`
+import {
+  LandingWrapper,
+  Title,
+  Project
+} from './index.style'
 
 class Landing extends React.Component {
 
@@ -25,6 +15,7 @@ class Landing extends React.Component {
     const res = await contentfulClient()
       .getEntries({
         content_type: 'projects',
+        locale: 'fr-CA',
         include: 10
       })
   
@@ -32,12 +23,16 @@ class Landing extends React.Component {
     return { data: items }
   }
 
-  projects() {
-    console.log(this.props);
+  projects() {    
+    console.log(this.props.data);
     
     if (this.props.data) {
       return this.props.data.map((project, index) => 
-        <Project order={index} key={index}>{project.fields.title}</Project>
+        <Project order={index} key={index}>
+          <Link as={`/project/${project.fields.slug}`} href={{ pathname: '/project', query: { slug: project.fields.slug, id: project.sys.id } }}>
+            {project.fields.title}
+          </Link>
+        </Project>
       )
     }
   }
@@ -45,8 +40,8 @@ class Landing extends React.Component {
   render(){ 
     return(
       <LandingWrapper>
-        <Title>
-          Welcome to next.js!!!
+        <Title invert>
+          Mill3  Studio
         </Title>
         {this.projects()}
       </LandingWrapper>
